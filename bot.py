@@ -47,7 +47,7 @@ Commands:
 > hello : Hi!
 > help : Well, you got this far...
 > translate : Ad-lib translation!
-> language: Shows all supported languages and codes
+> languages: Shows all supported languages and codes
 ```'''
     else:
         args = args.lower().strip()
@@ -93,7 +93,7 @@ async def translate(ctx, seconds : int, languages : str):
         timeout = t_end - time.time()
         try:
             msg = await bot.wait_for('message', timeout=timeout)
-            if msg.author.id != 645357754852048906:
+            if msg.author.id != 645357754852048906 and msg.channel == start_msg.channel:
                 messages.append((msg.author.name, msg.content))
                 await start_msg.edit(content="`Reading messages for the next {} seconds! #msg = {}`".format(str(seconds), str(len(messages))))
         except futures.TimeoutError:
